@@ -1,0 +1,17 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #fafafa;
+}
+
+[data-theme="dark"] .table th {
+  background: #1f1f1f;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
