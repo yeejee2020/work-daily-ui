@@ -1,4 +1,4 @@
-const API_BASE = "https://work-daily-api.myljyjso.workers.dev/"; // 替换为你的 Worker 地址
+const API_BASE = "https://work-daily-api.myljyjso.workers.dev"; 
 
 // 元素
 const addBtn = document.getElementById("addBtn");
