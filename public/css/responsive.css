@@ -1,0 +1,16 @@
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+
+  table {
+    display: none;
+  }
+
+  .mobile-card {
+    background: var(--card);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+}
