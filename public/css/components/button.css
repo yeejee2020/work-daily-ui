@@ -1,0 +1,20 @@
+.btn {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.btn-danger {
+  color: #ff4d4f;
+  border-color: #ff4d4f;
+}
