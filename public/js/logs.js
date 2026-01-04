@@ -81,7 +81,7 @@ function renderTable(logs){
       <td>${log.follow_up||""}</td>
       <td>${log.remark||""}</td>
       <td>
-        <button class="btn" onclick="editLog(${log.id})">编辑</button>
+        <button class="btn" onclick="openEdit(${log.id})">编辑</button>
         <button class="btn btn-danger" onclick="deleteLog(${log.id})">删除</button>
       </td>
     `;
@@ -97,8 +97,13 @@ window.deleteLog = async (id)=>{
   if(data.success) loadLogs();
 }
 
-// 编辑
-window.editLog = (log)=>{
+// 打开编辑弹窗
+window.openEdit = async (id) => {
+  // 先获取数据
+  const res = await fetch(`${API_BASE}/logs?` + new URLSearchParams({id}));
+  const log = (await res.json())[0];
+  if(!log) { alert("记录不存在"); return; }
+
   editModal.classList.remove("hidden");
   document.getElementById("edit_id").value = log.id;
   document.getElementById("edit_contact").value = log.contact;
@@ -107,11 +112,16 @@ window.editLog = (log)=>{
   document.getElementById("edit_content").value = log.content||"";
   document.getElementById("edit_follow_up").value = log.follow_up||"";
   document.getElementById("edit_remark").value = log.remark||"";
-}
+};
 
 // 取消编辑
 cancelEditBtn.addEventListener("click", ()=>{
   editModal.classList.add("hidden");
+});
+
+// 点击遮罩关闭
+editModal.addEventListener("click", e=>{
+  if(e.target === editModal) editModal.classList.add("hidden");
 });
 
 // 保存编辑
@@ -142,5 +152,5 @@ saveEditBtn.addEventListener("click", async ()=>{
   }
 });
 
-// 初始化加载
+// 页面加载时刷新列表
 loadLogs();
