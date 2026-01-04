@@ -21,62 +21,130 @@
   initTheme();
   window.toggleTheme = toggleTheme;
 </script>
-</head>
 
+</head>
 <body>
 
 <header>
   <nav>
     <a href="index.html">工作记录</a>
-    <a href="report.html">工作日报</a>
-    <a href="stats.html">统计分析</a>
+    <a href="#">工作日报</a>
+    <a href="#">统计分析</a>
     <button class="btn" onclick="toggleTheme()">切换主题</button>
   </nav>
 </header>
 
 <div class="container">
 
+  <!-- 搜索区 -->
   <div class="card">
-    <h3>搜索</h3>
+    <h3>搜索记录</h3>
     <div class="form-item">
-      <input type="date">
+      <label>日期</label>
+      <input type="date" id="search_date">
     </div>
-    <button class="btn btn-primary">搜索</button>
+    <div class="form-item">
+      <label>对接人</label>
+      <input type="text" id="search_contact">
+    </div>
+    <button class="btn btn-primary" id="searchBtn">搜索</button>
   </div>
 
+  <!-- 新增记录 -->
+  <div class="card">
+    <h3>新增工作记录</h3>
+    <div class="form-item">
+      <label>对接人</label>
+      <input type="text" id="contact">
+    </div>
+    <div class="form-item">
+      <label>所属公司</label>
+      <input type="text" id="company">
+    </div>
+    <div class="form-item">
+      <label>沟通方式</label>
+      <select id="method">
+        <option value="电话">电话</option>
+        <option value="微信">微信</option>
+        <option value="现场">现场</option>
+      </select>
+    </div>
+    <div class="form-item">
+      <label>具体内容</label>
+      <textarea id="content"></textarea>
+    </div>
+    <div class="form-item">
+      <label>后续处理情况</label>
+      <textarea id="follow_up"></textarea>
+    </div>
+    <div class="form-item">
+      <label>备注</label>
+      <textarea id="remark"></textarea>
+    </div>
+    <button class="btn btn-primary" id="addBtn">新增记录</button>
+  </div>
+
+  <!-- 记录列表 -->
   <div class="card">
     <h3>记录列表</h3>
-    <table class="table">
-      <tr>
-        <th>日期</th>
-        <th>对接人</th>
-        <th>公司</th>
-        <th>操作</th>
-      </tr>
-      <tr>
-        <td>2026-01-04</td>
-        <td>张三</td>
-        <td>某公司</td>
-        <td>
-          <button class="btn">编辑</button>
-          <button class="btn btn-danger">删除</button>
-        </td>
-      </tr>
+    <table class="table" id="logTable">
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>对接人</th>
+          <th>公司</th>
+          <th>沟通方式</th>
+          <th>具体内容</th>
+          <th>后续处理</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </div>
 
 </div>
-<script>
-async function loadData() {
-  const res = await fetch(
-    "https://work-daily-api.myljyjso.workers.dev/logs"
-  );
-  const data = await res.json();
-  console.log(data);
-}
 
-loadData();
-</script>
+<!-- 编辑弹窗 -->
+<div class="modal hidden" id="editModal">
+  <div class="modal-content fade-in slide-up">
+    <h3>编辑记录</h3>
+    <input type="hidden" id="edit_id">
+    <div class="form-item">
+      <label>对接人</label>
+      <input type="text" id="edit_contact">
+    </div>
+    <div class="form-item">
+      <label>所属公司</label>
+      <input type="text" id="edit_company">
+    </div>
+    <div class="form-item">
+      <label>沟通方式</label>
+      <select id="edit_method">
+        <option value="电话">电话</option>
+        <option value="微信">微信</option>
+        <option value="现场">现场</option>
+      </select>
+    </div>
+    <div class="form-item">
+      <label>具体内容</label>
+      <textarea id="edit_content"></textarea>
+    </div>
+    <div class="form-item">
+      <label>后续处理情况</label>
+      <textarea id="edit_follow_up"></textarea>
+    </div>
+    <div class="form-item">
+      <label>备注</label>
+      <textarea id="edit_remark"></textarea>
+    </div>
+    <button class="btn btn-primary" id="saveEditBtn">保存</button>
+    <button class="btn btn-danger" id="cancelEditBtn">取消</button>
+  </div>
+</div>
+
+<script type="module" src="/js/logs.js"></script>
 
 </body>
 </html>
